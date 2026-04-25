@@ -21,6 +21,8 @@ public class PaymentService {
     private final PaymentMapper paymentMapper;
 
     public PaymentResponse processPayment(PaymentRequest request) {
+
+
         Optional<Payment> existing = paymentRepository.findByOrderId(request.orderId());
         if (existing.isPresent()) {
             return paymentMapper.toResponse(existing.get());
@@ -34,6 +36,11 @@ public class PaymentService {
             status = PaymentStatus.FAILED;
             message = "Mock payment failure";
         } else {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             status = PaymentStatus.SUCCESS;
             transactionId = "TXN-" + UUID.randomUUID();
             message = "Payment processed successfully";

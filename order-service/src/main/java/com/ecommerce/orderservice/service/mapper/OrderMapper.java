@@ -10,5 +10,7 @@ public interface OrderMapper {
 
     @Mapping(target = "status", expression = "java(order.getStatus().name())")
     @Mapping(target = "paymentMethod", expression = "java(order.getPaymentMethod().name())")
+    @Mapping(source = "id", target = "orderId")
+   // @Mapping(source = "orderCode", target = "orderCode")
     OrderResponse mapToOrderResponse(Order order);
 }
