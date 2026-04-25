@@ -1,8 +1,6 @@
 # 🛒 Distributed E-Commerce System
 
-A microservices-based eCommerce backend built using Spring Boot.  
-This project demonstrates secure service-to-service communication, order processing, and payment integration using JWT authentication.
-
+A microservices-based eCommerce backend built using Spring Boot, demonstrating secure service communication, order processing, payment handling, and production-grade observability & CI/CD practices.
 ---
 
 ## 🚀 Features
@@ -80,15 +78,56 @@ Ensures:
 
 One Order = One Payment
 
+## 📊 Observability
+
+Implemented full observability stack:
+
+- Prometheus → metrics collection
+- Grafana → dashboards (latency, request rate, errors)
+- Loki + Promtail → centralized logging
+- Jaeger → distributed tracing
+- Key capabilities:
+- Trace requests across services using traceId
+- Debug latency using p95 metrics
+- Identify bottlenecks using Jaeger spans
+- Correlate logs using orderCode / traceId
+
+## ⚙️ CI/CD Pipeline
+
+Implemented modern CI/CD practices:
+
+- GitHub Actions for CI pipelines
+Automated:
+    - Build & test (Maven)
+    - Docker image creation
+    - Security scan (Trivy)
+- Image pushed to Docker registry
+- Deployment using Docker Compose
+
+## 🚀 Deployment Strategy
+
+- Implemented Blue-Green Deployment:
+
+- Blue = current version
+- Green = new version
+- Traffic switched only after validation
+- Enables:
+    - Zero/low downtime
+    - Quick rollback
+
 ## 🛠️ Tech Stack
-- Java 17+
-- Spring Boot
-- Spring Security (OAuth2 Resource Server)
-- Spring Data JPA
-- OpenFeign
-- Keycloak
-- MySQL, PostgreSQL, H2
-- Maven
+- Backend:
+Java 17, Spring Boot, Spring Security
+- Data:
+PostgreSQL, MySQL, H2
+- Security:
+Keycloak, OAuth2, JWT
+- Observability:
+Prometheus, Grafana, Loki, Jaeger
+- CI/CD:
+GitHub Actions, Docker, Trivy
+- Communication:
+OpenFeign
 
 ## 🧪 API Endpoints
 - Product Service
@@ -108,13 +147,3 @@ One Order = One Payment
 - Docker (optional)
 - Run services
 - mvn spring-boot:run
-
-## Run each service separately.
-📌 Future Improvements
-- API Gateway (Spring Cloud Gateway)
-- Service Discovery (Eureka)
-- Inventory/Stock Service
-- Event-driven architecture (Kafka)
-- Docker & Kubernetes deployment
-- CI/CD pipeline (GitHub Actions)
-  
