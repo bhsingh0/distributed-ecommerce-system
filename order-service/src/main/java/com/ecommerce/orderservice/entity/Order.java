@@ -12,8 +12,11 @@ import java.time.LocalDateTime;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
     private Long id;
+
+    @Column(name = "order_code", unique = true)
+    private String orderCode;
 
     @Column(nullable = false)
     private Long productId;
@@ -46,5 +49,9 @@ public class Order {
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public static String formatOrderCode(Long id) {
+        return String.format("COS-%05d", id);
     }
 }

@@ -5,17 +5,16 @@ import com.ecommerce.orderservice.dto.PaymentServiceResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+
+import com.ecommerce.orderservice.config.FeignConfig;
 
 @FeignClient(
         name = "payment-service",
-        url = "http://localhost:8085"
+        url = "${payment-service.url}",
+        configuration = FeignConfig.class
 )
 public interface PaymentClient {
 
     @PostMapping("/api/payments/process")
-    PaymentServiceResponse processPayment(
-            @RequestHeader("Authorization") String authorization,
-            @RequestBody PaymentServiceRequest request
-    );
+    PaymentServiceResponse processPayment(@RequestBody PaymentServiceRequest request);
 }

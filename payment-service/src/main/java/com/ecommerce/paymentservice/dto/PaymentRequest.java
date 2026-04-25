@@ -7,8 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public record PaymentRequest(
+
         @NotNull(message = "Order id is required")
         Long orderId,
+
+        @NotBlank(message = "Order code is required")
+        String orderCode,
 
         @NotNull(message = "Amount is required")
         @DecimalMin(value = "0.1", message = "Amount must be greater than 0")
